@@ -1,0 +1,74 @@
+name: CI(Storage) - Master
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+
+env:
+  BUCKET_NAME: notarise-functions-transfer-document-storage-stg
+  DOMAIN_NAME: api.functions.notarizesg.com
+  CERTIFICATE_DOMAIN: '*.notarizesg.com'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Tests
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm install
+    - run: npm run sls-config-check
+    - run: npm run lint
+    - run: mv .env.example .env
+    - run: npm run test
+
+  deploy-staging:
+    needs: [test]
+    defaults:
+      run:
+        working-directory: ./src/storage
+    name: Deploy Staging
+    runs-on: self-hosted
+    container:
+      image: ubuntu:latest
+      options: --user 1000
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - name: Install Serverless Framework
+      run: npm install -g serverless
+    - name: Serverless AWS authentication
+      run: sls config credentials --account_id ${{ secrets.STAGING_ACCOUNT_ID }} --provider aws --key ${{ secrets.STAGING_AWS_ACCESS_KEY_ID }} --secret ${{ secrets.STAGING_AWS_SECRET_ACCESS_KEY }}
+    - name: serverless deploy
+      run: sls deploy --account_id ${{ secrets.STAGING_ACCOUNT_ID }} --stage stg
+      env:
+        SLS_DEBUG: "*"
+        AWSJS_DEBUG: "*"
+
+  create-new-tag:
+    needs: [deploy-staging]
+    name: Create New Git Tag for release
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+        token: ${{ secrets.BOT_GITHUB_TOKEN }}
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.33.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
+        WITH_V: true
+        RELEASE_BRANCHES: master
+        DEFAULT_BUMP: patch

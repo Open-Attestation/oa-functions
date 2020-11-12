@@ -1,7 +1,7 @@
 service: storage
 provider:
   name: aws
-  apiKeys: 
+  apiKeys:
     - ${self:provider.stage}-storage-api-key
   runtime: nodejs12.x
   stage: ${opt:stage, 'stg'}
@@ -39,24 +39,24 @@ functions:
     get:
       handler: index.getHandler
       events:
-        - http: 
-            path: '/{id}' 
-            method: get 
-            request: 
-              parameters: 
-                paths: 
+        - http:
+            path: '/{id}'
+            method: get
+            request:
+              parameters:
+                paths:
                   id: true
             cors: true
-    
+
     createAtId:
       handler: index.createAtIdHandler
       events:
-        - http: 
+        - http:
             path: '/{id}'
-            method: post  
-            request: 
-              parameters: 
-                paths: 
+            method: post
+            request:
+              parameters:
+                paths:
                   id: true
             private: ${self:custom.ENABLE_STORAGE_UPLOAD_API_KEY}
             cors: true
@@ -64,8 +64,8 @@ functions:
     create:
       handler: index.createHandler
       events:
-        - http: 
-            path: / 
+        - http:
+            path: /
             method: post
             cors: true
             private: ${self:custom.ENABLE_STORAGE_UPLOAD_API_KEY}
@@ -73,7 +73,7 @@ functions:
     getQueueNumber:
       handler: index.queueNumberHandler
       events:
-        - http: 
+        - http:
             path: /queue
             method: get
             cors: true
@@ -90,7 +90,7 @@ custom:
   serverless-offline:
     lambdaPort: 5002
     httpPort: 5000
-  isManagedDomain: 
+  isManagedDomain:
     false: 'true' # To negate the environment variable DISABLE_DOMAIN
     true: 'false' # if you know of a way to do conditionals please change this
   customDomain:
