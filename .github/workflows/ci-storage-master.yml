@@ -8,7 +8,7 @@ on:
 
 env:
   BUCKET_NAME: notarise-functions-transfer-document-storage-stg
-  DOMAIN_NAME: api.functions.notarizesg.com
+  DOMAIN: api.functions.notarizesg.com
   CERTIFICATE_DOMAIN: '*.notarizesg.com'
 
 jobs:
