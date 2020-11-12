@@ -10,6 +10,8 @@ env:
   BUCKET_NAME: notarise-functions-transfer-document-storage-stg
   DOMAIN: api.functions.notarizesg.com
   CERTIFICATE_DOMAIN: 'notarizesg.com'
+  SLS_DEBUG: "*"
+  AWSJS_DEBUG: "*"
 
 jobs:
   test:
@@ -54,9 +56,6 @@ jobs:
       run: sls create_domain --account_id ${{ secrets.STAGING_ACCOUNT_ID }} --stage stg
     - name: serverless deploy
       run: sls deploy --account_id ${{ secrets.STAGING_ACCOUNT_ID }} --stage stg
-      env:
-        SLS_DEBUG: "*"
-        AWSJS_DEBUG: "*"
 
   create-new-tag:
     needs: [deploy-staging]
