@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 env:
-  BUCKET_NAME: notarise-functions-transfer-document-storage-stg
+  BUCKET_NAME: notarise-functions-transfer-document-storage
   DOMAIN: api.functions.notarizesg.com
   OBJECT_TTL: 31
   CERTIFICATE_DOMAIN: 'notarizesg.com'

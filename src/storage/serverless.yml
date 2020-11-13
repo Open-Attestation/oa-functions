@@ -1,6 +1,7 @@
 service: notarise-function-storage
 provider:
   name: aws
+  endpointType: REGIONAL
   apiKeys:
     - ${self:provider.stage}-storage-api-key
   runtime: nodejs12.x
