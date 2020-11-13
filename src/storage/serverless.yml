@@ -14,7 +14,9 @@ provider:
     apiGateway: true
   permissionsBoundary: 'arn:aws:iam::${opt:account_id}:policy/GCCIAccountBoundary'
   logs:
-    restApi: true
+    restApi:
+      role: arn:aws:iam::${opt:account_id}:role/serverlessApiGatewayCloudwatchRole
+      roleManagedExternally: true
   deploymentBucket:
     name: notarise-serverless-deployment
   environment:
