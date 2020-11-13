@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: '12.x'
     - run: npm install
-    - run: npm run sls-config-check --account_id ${{ secrets.STAGING_ACCOUNT_ID }}
+    - run: npm run sls-config-check
     - run: npm run lint
     - run: mv .env.example .env
     - run: npm run test
