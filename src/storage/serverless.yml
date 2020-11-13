@@ -16,7 +16,7 @@ provider:
   logs:
     restApi:
       role: arn:aws:iam::${opt:account_id}:role/serverlessApiGatewayCloudwatchRole
-      roleManagedExternally: true
+      # roleManagedExternally: true
   deploymentBucket:
     name: notarise-serverless-deployment
   environment:
