@@ -13,6 +13,7 @@ env:
   CERTIFICATE_DOMAIN: 'notarizesg.com'
   SLS_DEBUG: "*"
   AWSJS_DEBUG: "*"
+  SLS_AWS_REQUEST_MAX_RETRIES: 15
 
 jobs:
   test:
