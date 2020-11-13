@@ -13,6 +13,8 @@ provider:
     apiGateway: true
   logs:
     restApi: true
+  deploymentBucket:
+    name: notarise-serverless-deployment
   environment:
     BUCKET_NAME: '${self:custom.BUCKET_NAME}'
     OBJECT_TTL: '${self:custom.OBJECT_TTL}'
