@@ -9,6 +9,7 @@ on:
 env:
   BUCKET_NAME: notarise-functions-transfer-document-storage-stg
   DOMAIN: api.functions.notarizesg.com
+  OBJECT_TTL: 31
   CERTIFICATE_DOMAIN: 'notarizesg.com'
   SLS_DEBUG: "*"
   AWSJS_DEBUG: "*"

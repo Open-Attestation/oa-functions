@@ -11,6 +11,7 @@ provider:
   tracing:
     lambda: true
     apiGateway: true
+  permissionsBoundary: 'arn:aws:iam::${opt:account_id}:policy/GCCIAccountBoundary'
   logs:
     restApi: true
   deploymentBucket:
@@ -33,10 +34,10 @@ resources:
         BucketName: '${self:custom.BUCKET_NAME}'
         LifecycleConfiguration:
             Rules:
-              -
-                ExpirationInDays: ${self:custom.OBJECT_TTL}
+              - ExpirationInDays: ${self:custom.OBJECT_TTL}
                 Prefix: '/'
                 Status: Enabled
+
 functions:
     get:
       handler: index.getHandler
@@ -123,3 +124,4 @@ plugins:
   - serverless-offline
   - serverless-domain-manager
   - serverless-webpack
+  - serverless-attach-permission-boundary
