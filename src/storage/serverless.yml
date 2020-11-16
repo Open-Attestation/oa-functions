@@ -108,9 +108,9 @@ custom:
     endpointType: "regional"
     securityPolicy: tls_1_2
     enabled: ${strToBool(${self:custom.isManagedDomain.${env:DISABLE_DOMAIN, 'false'}})}
-  webpack:
-    includeModules:
-      packagePath: "../../package.json"
+  # webpack:
+  #   includeModules:
+  #     packagePath: "../../package.json"
   enableBucketDeletionPrompt:
     prod: true # we don't want these buckets in these stages to be deleted without a prompt
     stg: true
@@ -126,5 +126,5 @@ plugins:
   - serverless-s3-remover
   - serverless-offline
   - serverless-domain-manager
-  - serverless-webpack
+  # - serverless-webpack
   - serverless-attach-permission-boundary

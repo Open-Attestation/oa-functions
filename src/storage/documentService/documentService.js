@@ -1,5 +1,5 @@
 const uuid = require("uuid/v4");
-const { verify, isValid } = require("@govtechsg/opencerts-verify");
+const { verify, isValid } = require("@govtechsg/oa-verify");
 const {
   encryptString,
   generateEncryptionKey
