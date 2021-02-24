@@ -27,7 +27,11 @@ const handleFaucet = async (event, _context, callback) => {
     callback(null, {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ response: "Success", txhash: transfer.hash }),
+      body: JSON.stringify({
+        address: receiver,
+        txhash: transfer.hash,
+        amount: "1",
+      }),
     });
   } catch (e) {
     callback(null, {
