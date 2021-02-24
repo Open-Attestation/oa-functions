@@ -2,6 +2,7 @@ const middy = require("middy");
 const { cors } = require("middy/middlewares");
 const { ethers, utils } = require("ethers");
 const { AwsKmsSigner } = require("ethers-aws-kms-signer");
+const { reverse } = require("lodash");
 
 const handleFaucet = async (event, _context, callback) => {
   try {
@@ -19,14 +20,14 @@ const handleFaucet = async (event, _context, callback) => {
     if (!utils.isAddress(receiver)) throw new Error("Invalid wallet address");
     const signerBalance = ethers.utils.formatEther(await signer.getBalance());
     if (signerBalance < 1) throw new Error("Insufficient Funds in wallet.");
-    await signer.sendTransaction({
+    const transfer = await signer.sendTransaction({
       to: receiver,
       value: utils.parseEther("1"),
     });
     callback(null, {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ response: "Success" }),
+      body: JSON.stringify({ response: "Success", txhash: transfer.hash }),
     });
   } catch (e) {
     callback(null, {
