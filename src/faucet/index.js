@@ -4,17 +4,19 @@ const config = require("./config");
 const { ethers, utils } = require("ethers");
 
 const handleFaucet = async (event, _context, callback) => {
-  try {
+  console.log("got here 4")
     // const provider = ethers.getDefaultProvider("ropsten");
     const provider = new ethers.providers.InfuraProvider("ropsten");
     
     // step 1: handle the request, extract the target wallet address
     // const receiver = event.pathParameters.walletAddress; // TODO: validate wallet address
     const receiver = "0x709731d94D65b078496937655582401157c8A640";
+    console.log(await provider.getBalance(receiver))
 
     if (!utils.isAddress(receiver)) {
       throw new Error("Invalid wallet address");
     } else {
+      console.log("gothere 3")
       // step 2: unlock /your own wallet/ -- wallet private key should be provided in env var
       const privateKey = process.env.FAUCET_PRIVATE_KEY;
       const sender = new ethers.Wallet(privateKey, provider);
@@ -23,6 +25,7 @@ const handleFaucet = async (event, _context, callback) => {
       //   console.log("BALANCE: " + balance);
       // })
 
+      console.log("gothere 2")
       // const balance = await sender.getBalance();
       console.log(sender.address);
       const balance2 = await provider.getBalance(sender.address);
@@ -48,6 +51,8 @@ const handleFaucet = async (event, _context, callback) => {
         value: utils.parseEther("1"),
       };
 
+      console.log("got here")
+
       // const result = await sender.sendTransaction(transaction);
       // console.log(result);
       // step 4: send successful response
@@ -59,12 +64,12 @@ const handleFaucet = async (event, _context, callback) => {
 
     }
     
-  } catch (e) {
-    callback(null, {
-      statusCode: 400,
-      body: e.message
-    });
-  }
+  // } catch (e) {
+  //   callback(null, {
+  //     statusCode: 400,
+  //     body: e.message
+  //   });
+  // }
 };
 
 const handler = middy(handleFaucet).use(cors());
