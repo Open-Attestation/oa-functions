@@ -16,10 +16,14 @@ functions:
     handler: index.handler
     timeout: 15 # long timeout as infura api can take awhile
     events:
-      - http: 
-          path: / 
-          method: get 
+      - http:
+          path: /{walletAddress}
+          method: get
           cors: true
+          request:
+            parameters:
+              paths:
+                walletAddress: true
 custom:
   dotenv:
     basePath: ../../
@@ -27,9 +31,9 @@ custom:
     lambdaPort: 4002
     httpPort: 4000
   NETWORK: ${env:NETWORK, "ropsten"}
-  isManagedDomain: 
-    false: 'true' # To negate the environment variable DISABLE_DOMAIN
-    true: 'false' # if you know of a way to do conditionals please change this
+  isManagedDomain:
+    false: "true" # To negate the environment variable DISABLE_DOMAIN
+    true: "false" # if you know of a way to do conditionals please change this
   customDomain:
     domainName: "${env:DOMAIN}" # Change this to your domain.
     basePath: "verify" # This will be prefixed to all routes
