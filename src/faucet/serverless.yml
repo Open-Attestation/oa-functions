@@ -1,0 +1,49 @@
+service: faucet
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: "${opt:stage, 'stg'}"
+  region: "${opt:region, 'ap-southeast-1'}"
+  memorySize: 256
+  tracing:
+    lambda: true
+    apiGateway: true
+  logs:
+    restApi: true
+functions:
+  faucet:
+    description: "Dispenses 1 eth to given address when endpoint is called"
+    handler: index.handler
+    timeout: 15 # long timeout as infura api can take awhile
+    events:
+      - http: 
+          path: / 
+          method: get 
+          cors: true
+custom:
+  dotenv:
+    basePath: ../../
+  serverless-offline:
+    lambdaPort: 4002
+    httpPort: 4000
+  NETWORK: ${env:NETWORK, "ropsten"}
+  isManagedDomain: 
+    false: 'true' # To negate the environment variable DISABLE_DOMAIN
+    true: 'false' # if you know of a way to do conditionals please change this
+  customDomain:
+    domainName: "${env:DOMAIN}" # Change this to your domain.
+    basePath: "verify" # This will be prefixed to all routes
+    stage: ${self:provider.stage}
+    certificateName: "${env:CERTIFICATE_DOMAIN}"
+    createRoute53Record: true
+    endpointType: "regional"
+    securityPolicy: tls_1_2
+    enabled: ${strToBool(${self:custom.isManagedDomain.${env:DISABLE_DOMAIN, 'false'}})}
+  webpack:
+    includeModules:
+      packagePath: "../../package.json"
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+  - serverless-domain-manager
+  - serverless-webpack
