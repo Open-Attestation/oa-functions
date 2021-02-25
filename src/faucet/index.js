@@ -20,9 +20,11 @@ const handleFaucet = async (event, _context, callback) => {
     signer = signer.connect(provider);
     const signerBalance = ethers.utils.formatEther(await signer.getBalance());
     if (signerBalance < 1) {
-      throw new Error(
-        "Oops! Faucet has ran dry, please inform the Open-Attestation team."
-      );
+      throw {
+        statusCode: 500,
+        message:
+          "Oops! Faucet has ran dry, please inform the Open-Attestation team.",
+      };
     }
 
     const transfer = await signer.sendTransaction({
@@ -39,8 +41,9 @@ const handleFaucet = async (event, _context, callback) => {
       }),
     });
   } catch (e) {
+    console.log("e", e);
     callback(null, {
-      statusCode: 500,
+      statusCode: e.statusCode || 400,
       body: e.message,
     });
   }
