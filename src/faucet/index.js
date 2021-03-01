@@ -13,18 +13,14 @@ const handleFaucet = async (event, _context, callback) => {
     };
 
     const receiver = event.pathParameters.walletAddress;
-    if (!utils.isAddress(receiver)) throw new Error("Invalid wallet address");
+    if (!utils.isAddress(receiver)) throw { statusCode: 400, message: "Invalid wallet address" };
 
     const provider = ethers.getDefaultProvider("ropsten");
     let signer = new AwsKmsSigner(kmsCredentials);
     signer = signer.connect(provider);
     const signerBalance = ethers.utils.formatEther(await signer.getBalance());
     if (signerBalance < 1) {
-      throw {
-        statusCode: 500,
-        message:
-          "Oops! Faucet has ran dry, please inform the Open-Attestation team.",
-      };
+      throw new Error("Oops! Faucet has ran dry, please inform the Open-Attestation team.")
     }
 
     const transfer = await signer.sendTransaction({
@@ -43,7 +39,7 @@ const handleFaucet = async (event, _context, callback) => {
   } catch (e) {
     console.log("e", e);
     callback(null, {
-      statusCode: e.statusCode || 400,
+      statusCode: e.statusCode || 500,
       body: e.message,
     });
   }
