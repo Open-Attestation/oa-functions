@@ -3,6 +3,10 @@ const { cors } = require("middy/middlewares");
 const { getDocument } = require("./documentService");
 
 const handleGet = async event => {
+  const errorHeader = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+  }
   try {
     const { id } = event.pathParameters;
     const cleanup =
@@ -16,6 +20,7 @@ const handleGet = async event => {
   } catch (e) {
     return {
       statusCode: 400,
+      headers: errorHeader,
       body: JSON.stringify({ error: e.message })
     };
   }

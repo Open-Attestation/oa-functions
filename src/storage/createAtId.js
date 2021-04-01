@@ -3,6 +3,10 @@ const { cors } = require("middy/middlewares");
 const { uploadDocumentAtId } = require("./documentService");
 
 const handleCreateAtId = async event => {
+  const errorHeader = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Credentials": true
+  }
   try {
     const { document, ttl } = JSON.parse(event.body);
     const { id } = event.pathParameters;
@@ -18,11 +22,13 @@ const handleCreateAtId = async event => {
     ) {
       return {
         statusCode: 400,
+        headers: errorHeader,
         body: JSON.stringify({ error: "Unauthorised Access" })
       };
     }
     return {
       statusCode: 400,
+      headers: errorHeader,
       body: JSON.stringify({
         error: e.message
       })
