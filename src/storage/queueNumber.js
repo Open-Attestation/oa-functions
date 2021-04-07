@@ -1,6 +1,7 @@
 const middy = require("middy");
 const { cors } = require("middy/middlewares");
-const { getQueueNumber, CORS_ERROR_HEADER } = require("./documentService");
+const { getQueueNumber } = require("./documentService");
+const { CORS_ERROR_HEADER } = require("./global");
 
 const handleQueueNumber = async () => {
   try {

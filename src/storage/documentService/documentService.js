@@ -13,12 +13,15 @@ const {
 const config = require("../config");
 const { put, get, remove } = require("../s3");
 
-const DEFAULT_TTL_IN_MICROSECONDS = 30 * 24 * 60 * 60 * 1000; // 30 Days
-const MAX_TTL_IN_MICROSECONDS = 90 * 24 * 60 * 60 * 1000; // 90 Days
-const CORS_ERROR_HEADER = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Credentials": true
-};
+const { DEFAULT_TTL_IN_MICROSECONDS } = require("../global");
+const { MAX_TTL_IN_MICROSECONDS } = require("../global");
+
+// const DEFAULT_TTL_IN_MICROSECONDS = 30 * 24 * 60 * 60 * 1000; // 30 Days
+// const MAX_TTL_IN_MICROSECONDS = 90 * 24 * 60 * 60 * 1000; // 90 Days
+// const CORS_ERROR_HEADER = {
+//   "Access-Control-Allow-Origin": "*",
+//   "Access-Control-Allow-Credentials": true
+// };
 
 const verify = verificationBuilder(openAttestationVerifiers, {
   network: config.network
@@ -169,7 +172,7 @@ module.exports = {
   uploadDocumentAtId,
   getDocument,
   calculateExpiryTimestamp,
-  DEFAULT_TTL_IN_MICROSECONDS,
-  MAX_TTL_IN_MICROSECONDS,
-  CORS_ERROR_HEADER
+  // DEFAULT_TTL_IN_MICROSECONDS,
+  // MAX_TTL_IN_MICROSECONDS,
+  // CORS_ERROR_HEADER
 };
