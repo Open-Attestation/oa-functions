@@ -11,7 +11,6 @@ const handleCreate = async event => {
       body: JSON.stringify(receipt)
     };
   } catch (e) {
-    console.log("handleCreate: ", e);
     // this error message shows up when the uuid already exists in dynamodb and we try to write to it
     if (e.message === "The conditional request failed") {
       return {

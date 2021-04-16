@@ -7,13 +7,14 @@ const {
   thatIsAQueueNumber
 } = require("../utils/matchers");
 
-const API_ENDPOINT = "http://localhost:5000/stg";
+const API_ENDPOINT =
+  process.env.STORAGE_ENDPOINT || "https://api-ropsten.tradetrust.io/storage";
 const API_TIMEOUT = 30000; // api timeout defined in serverless.yml
 
 const request = supertest(API_ENDPOINT);
 
 describe("storage endpoint test", () => {
-  test.only(
+  test(
     "should create a new document when no placeholder object is there",
     async () => {
       await request
@@ -24,7 +25,6 @@ describe("storage endpoint test", () => {
           document: ropstenDocument
         })
         .expect(res => {
-          console.log("!!!: ", res.body);
           expect(res.body).toEqual(thatIsUploadResponse);
         });
     },

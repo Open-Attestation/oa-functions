@@ -17,7 +17,7 @@ const DEFAULT_TTL_IN_MICROSECONDS = 30 * 24 * 60 * 60 * 1000; // 30 Days
 const MAX_TTL_IN_MICROSECONDS = 90 * 24 * 60 * 60 * 1000; // 90 Days
 
 const verify = verificationBuilder(openAttestationVerifiers, {
-  network: "ropsten"
+  network: config.network
 });
 
 const putDocument = async (document, id) => {
@@ -110,7 +110,6 @@ const uploadDocument = async (
   ttlInMicroseconds = DEFAULT_TTL_IN_MICROSECONDS
 ) => {
   const fragments = await verify(document);
-  console.log("uploadDocument: ", fragments);
   if (!isValid(fragments)) {
     throw new Error("Document is not valid");
   }
