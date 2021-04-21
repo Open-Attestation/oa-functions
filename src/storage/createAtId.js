@@ -1,7 +1,7 @@
 const middy = require("middy");
 const { cors } = require("middy/middlewares");
 const { uploadDocumentAtId } = require("./documentService");
-const { CORS_ERROR_HEADER } = require("./helper");
+const { CORS_ERROR_HEADER } = require("../../utils/cors");
 
 const handleCreateAtId = async event => {
   try {

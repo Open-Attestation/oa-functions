@@ -1,4 +1,3 @@
-// common variables
 const CORS_ERROR_HEADER = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Credentials": true
