@@ -1,7 +1,7 @@
 const middy = require("middy");
 const { cors } = require("middy/middlewares");
 const { uploadDocument } = require("./documentService");
-const { CORS_ERROR_HEADER } = require("../../utils/cors");
+const { CORS_POLICY_HEADER } = require("../../utils/cors");
 
 const handleCreate = async event => {
   try {
@@ -16,13 +16,13 @@ const handleCreate = async event => {
     if (e.message === "The conditional request failed") {
       return {
         statusCode: 400,
-        headers: CORS_ERROR_HEADER,
+        headers: CORS_POLICY_HEADER,
         body: "Unauthorised"
       };
     }
     return {
       statusCode: 400,
-      headers: CORS_ERROR_HEADER,
+      headers: CORS_POLICY_HEADER,
       body: JSON.stringify({
         error: e.message
       })

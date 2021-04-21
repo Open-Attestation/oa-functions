@@ -1,7 +1,7 @@
 const middy = require("middy");
 const { cors } = require("middy/middlewares");
 const { getQueueNumber } = require("./documentService");
-const { CORS_ERROR_HEADER } = require("../../utils/cors");
+const { CORS_POLICY_HEADER } = require("../../utils/cors");
 
 const handleQueueNumber = async () => {
   try {
@@ -13,7 +13,7 @@ const handleQueueNumber = async () => {
   } catch (e) {
     return {
       statusCode: 400,
-      headers: CORS_ERROR_HEADER,
+      headers: CORS_POLICY_HEADER,
       body: JSON.stringify({ error: e.message })
     };
   }
