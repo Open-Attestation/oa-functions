@@ -1,0 +1,42 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.19.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@govtechsg/open-attestation > lodash':
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - '@govtechsg/oa-verify > @govtechsg/open-attestation > lodash':
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > @serverless/enterprise-plugin > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > archiver > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > inquirer > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - '@govtechsg/oa-verify > @govtechsg/oa-did-sign > @govtechsg/open-attestation > lodash':
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > json-refs > graphlib > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > @serverless/cli > prettyoutput > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > @serverless/enterprise-plugin > @serverless/event-mocks > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > archiver > archiver-utils > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > archiver > async > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > archiver > zip-stream > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > tabtab > inquirer > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - '@govtechsg/oa-verify > snyk > snyk-nodejs-lockfile-parser > @yarnpkg/core > lodash':
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > @serverless/cli > @serverless/template > graphlib > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - serverless > archiver > zip-stream > archiver-utils > lodash:
+        patched: '2021-04-22T08:51:24.308Z'
+    - '@govtechsg/oa-verify > @govtechsg/oa-did-sign > snyk > snyk-nodejs-lockfile-parser > @yarnpkg/core > lodash':
+        patched: '2021-04-22T08:51:24.308Z'
