@@ -1,8 +1,10 @@
 service: storage
 provider:
+  lambdaHashingVersion: "20201221"
   name: aws
-  apiKeys:
-    - ${self:provider.stage}-storage-api-key
+  apiGateway:
+    apiKeys:
+      - ${self:provider.stage}-storage-api-key
   runtime: nodejs12.x
   stage: ${opt:stage, 'stg'}
   region: ap-southeast-1
@@ -17,11 +19,15 @@ provider:
     BUCKET_NAME: "${self:custom.BUCKET_NAME}"
     OBJECT_TTL: "${self:custom.OBJECT_TTL}"
     S3_REGION: ${self:provider.region}
-  iamRoleStatements:
-    - Effect: Allow
-      Action: ["s3:putObject", "s3:upload", "s3:deleteObject", "s3:getObject"]
-      Resource:
-        - "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }, "/*"]]
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            ["s3:putObject", "s3:upload", "s3:deleteObject", "s3:getObject"]
+          Resource:
+            - "Fn::Join":
+                ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }, "/*"]]
 resources:
   Resources:
     DeployedBucket:
@@ -93,10 +99,10 @@ custom:
     false: "true" # To negate the environment variable DISABLE_DOMAIN
     true: "false" # if you know of a way to do conditionals please change this
   customDomain:
-    domainName: "${env:DOMAIN}" # Change this to your domain.
+    domainName: ${env:DOMAIN, "example.com"} # Change this to your domain.
     basePath: "storage" # This will be prefixed to all routes
     stage: ${self:provider.stage}
-    certificateName: "${env:CERTIFICATE_DOMAIN}"
+    certificateName: ${env:CERTIFICATE_DOMAIN, "example.com"}
     createRoute53Record: true
     endpointType: "regional"
     securityPolicy: tls_1_2
