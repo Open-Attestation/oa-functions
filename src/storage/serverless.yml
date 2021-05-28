@@ -25,14 +25,38 @@ provider:
         - Effect: "Allow"
           Action:
             - "s3:putObject"
+          Resource:
+            Fn::Join:
+              - ""
+              - - "arn:aws:s3:::"
+                - Ref: DeployedBucket
+                - "/*"
+        - Effect: "Allow"
+          Action:
             - "s3:upload"
+          Resource:
+            Fn::Join:
+              - ""
+              - - "arn:aws:s3:::"
+                - Ref: DeployedBucket
+                - "/*"
+        - Effect: "Allow"
+          Action:
             - "s3:deleteObject"
+          Resource:
+            Fn::Join:
+              - ""
+              - - "arn:aws:s3:::"
+                - Ref: DeployedBucket
+                - "/*"
+        - Effect: "Allow"
+          Action:
             - "s3:getObject"
           Resource:
             Fn::Join:
               - ""
               - - "arn:aws:s3:::"
-                - Ref: ServerlessDeploymentBucket
+                - Ref: DeployedBucket
                 - "/*"
 resources:
   Resources:
