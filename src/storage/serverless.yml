@@ -19,15 +19,11 @@ provider:
     BUCKET_NAME: "${self:custom.BUCKET_NAME}"
     OBJECT_TTL: "${self:custom.OBJECT_TTL}"
     S3_REGION: ${self:provider.region}
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            ["s3:putObject", "s3:upload", "s3:deleteObject", "s3:getObject"]
-          Resource:
-            - "Fn::Join":
-                ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }, "/*"]]
+  iamRoleStatements:
+    - Effect: Allow
+      Action: ["s3:putObject", "s3:upload", "s3:deleteObject", "s3:getObject"]
+      Resource:
+        - "Fn::Join": ["", ["arn:aws:s3:::", { "Ref": "DeployedBucket" }, "/*"]]
 resources:
   Resources:
     DeployedBucket:
