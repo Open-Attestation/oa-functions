@@ -22,12 +22,12 @@ provider:
   iam:
     role:
       statements:
-        - Effect: Allow
+        - Effect: "Allow"
           Action:
-            - s3:putObject
-            - s3:upload
-            - s3:deleteObject
-            - s3:getObject
+            - "s3:putObject"
+            - "s3:upload"
+            - "s3:deleteObject"
+            - "s3:getObject"
           Resource:
             Fn::Join:
               - ""
