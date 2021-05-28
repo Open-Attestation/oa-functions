@@ -32,7 +32,7 @@ provider:
             Fn::Join:
               - ""
               - - "arn:aws:s3:::"
-                - Ref: DeployedBucket
+                - Ref: ServerlessDeploymentBucket
                 - "/*"
 resources:
   Resources:
