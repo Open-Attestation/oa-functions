@@ -13,6 +13,7 @@ const API_TIMEOUT = 30000; // api timeout defined in serverless.yml
 
 const request = supertest(API_ENDPOINT);
 
+// eslint-disable-next-line no-console
 console.log("!!! storage endpoint", API_ENDPOINT);
 
 describe("storage endpoint test", () => {
