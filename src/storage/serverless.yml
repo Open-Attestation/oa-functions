@@ -1,4 +1,5 @@
 service: storage
+disabledDeprecations: CLI_OPTIONS_SCHEMA # https://github.com/sinofseven/serverless-s3-remover/issues/21, https://www.serverless.com/framework/docs/deprecations/#CLI_OPTIONS_SCHEMA
 provider:
   lambdaHashingVersion: "20201221"
   name: aws
