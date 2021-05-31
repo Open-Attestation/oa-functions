@@ -7,4 +7,8 @@ export VERIFY_ENDPOINT=`cd src/verify && serverless info --verbose --stage $SEED
 export EMAIL_ENDPOINT=`cd src/email && serverless info --verbose --stage $SEED_STAGE_NAME | awk '/ServiceEndpoint/{ print substr($2, 1) }'`
 export STORAGE_ENDPOINT=`cd src/storage && serverless info --verbose --stage $SEED_STAGE_NAME | awk '/ServiceEndpoint/{ print substr($2, 1) }'`
 
+echo `cd src/storage && serverless info --verbose --stage $SEED_STAGE_NAME | awk '/ServiceEndpoint/{print $2}'`
+
+echo `cd src/storage && serverless info --verbose --stage $SEED_STAGE_NAME | awk '/ServiceEndpoint/{ print substr($2, 1) }'`
+
 npm run e2etest

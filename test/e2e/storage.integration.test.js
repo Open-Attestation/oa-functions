@@ -13,6 +13,8 @@ const API_TIMEOUT = 30000; // api timeout defined in serverless.yml
 
 const request = supertest(API_ENDPOINT);
 
+console.log("!!! storage endpoint", API_ENDPOINT);
+
 describe("storage endpoint test", () => {
   test(
     "should create a new document when no placeholder object is there",
